@@ -77,7 +77,7 @@ class TicketEdit extends React.Component {
       due: this.state.due
     }
 
-    axios.put('http://localhost:5000/tickets/' + this.state.id, editedTicket)
+    axios.put('http://open-ticket.herokuapp.com/tickets/' + this.state.id, editedTicket)
     .then(res => {
       console.log(res.data)
       window.location = '/';
@@ -88,7 +88,7 @@ class TicketEdit extends React.Component {
   onDeleteClick = e => {
     e.preventDefault()
 
-    axios.delete('http://localhost:5000/tickets/' + this.state.id)
+    axios.delete('http://open-ticket.herokuapp.com/tickets/' + this.state.id)
     .then(res => {
       console.log(res.data)
       window.location = '/';
