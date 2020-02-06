@@ -23,12 +23,7 @@ class TicketEdit extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://open-ticket.herokuapp.com/tickets/' + this.props.match.params.id)
-    // axios({
-    //   method: "get",
-    //   baseUrl: ("http://localhost:3001"),
-    //   url:"/tickets/" + this.props.match.params.id
-    // })
+    axios.get('https://open-ticket-backend.herokuapp.com/tickets/' + this.props.match.params.id)
     .then(response => {
       this.setState({
         id: response.data._id,
@@ -77,7 +72,7 @@ class TicketEdit extends React.Component {
       due: this.state.due
     }
 
-    axios.put('http://open-ticket.herokuapp.com/tickets/' + this.state.id, editedTicket)
+    axios.put('https://open-ticket-backend.herokuapp.com/tickets/' + this.state.id, editedTicket)
     .then(res => {
       console.log(res.data)
       window.location = '/';
@@ -88,7 +83,7 @@ class TicketEdit extends React.Component {
   onDeleteClick = e => {
     e.preventDefault()
 
-    axios.delete('http://open-ticket.herokuapp.com/tickets/' + this.state.id)
+    axios.delete('https://open-ticket-backend.herokuapp.com/tickets/' + this.state.id)
     .then(res => {
       console.log(res.data)
       window.location = '/';

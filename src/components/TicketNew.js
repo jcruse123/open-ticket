@@ -60,7 +60,7 @@ class TicketNew extends React.Component {
       due: this.state.due
     }
 
-    axios.post('http://open-ticket.herokuapp.com/tickets/', newTicket)
+    axios.post('https://open-ticket-backend.herokuapp.com/tickets/', newTicket)
     .then(res => {
       console.log(res.data)
       window.location = '/';
