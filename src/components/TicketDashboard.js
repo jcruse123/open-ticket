@@ -10,7 +10,7 @@ class TicketDashboard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/tickets/')
+    axios.get('https://open-ticket-backend.herokuapp.com/tickets/')
     .then(response => {
       console.log(response.data);
       this.setState({tickets: response.data})
