@@ -23,7 +23,12 @@ class TicketEdit extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/tickets/' + this.props.match.params.id)
+    axios.get('http://open-ticket.herokuapp.com/tickets/' + this.props.match.params.id)
+    // axios({
+    //   method: "get",
+    //   baseUrl: ("http://localhost:3001"),
+    //   url:"/tickets/" + this.props.match.params.id
+    // })
     .then(response => {
       this.setState({
         id: response.data._id,
