@@ -6,6 +6,7 @@ class TicketTable extends React.Component {
   render() {
     const tickets = this.props.tickets.map((ticket, i) => (
       <Ticket
+        {...this.props}
         key = {i}
         id = {ticket._id}
         requestor = {ticket.requestor}

@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import TicketNavbar from './TicketNavbar';
 
 class TicketNew extends React.Component {
   constructor(props) {
@@ -62,43 +63,47 @@ class TicketNew extends React.Component {
 
     axios.post('https://open-ticket-backend.herokuapp.com/tickets/', newTicket)
     .then(res => {
-      console.log(res.data)
-      window.location = '/';
+      this.props.history.push('/');
     });
 
   }
 
   render() {
     return(
-      <div className="container">
-        <h2>New Ticket</h2>
-
-        <Form>
-          <Form.Group controlId="formAuthorText">
-            <Form.Label>Author</Form.Label>
-            <Form.Control onChange={this.onChangeAuthor} value={this.state.author} />
-          </Form.Group>
-          <Form.Group controlId="formPlainText">
-            <Form.Label>Requestor</Form.Label>
-            <Form.Control type="text" onChange={this.onChangeRequestor} value={this.state.requestor} placeholder="Who is requesting this ticket?" />
-          </Form.Group>
-          <Form.Group controlId="formTextArea">
-            <Form.Label>Description</Form.Label>
-            <Form.Control as="textarea" onChange={this.onChangeDesc} value={this.state.desc} placeholder="Describe the issue." />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Due Date</Form.Label>
-            <br />
-            <DatePicker
-              placeholder="Due Date"
-              onChange={this.onChangeDue}
-              selected={this.state.due}
-            />
-          </Form.Group>
-          <Button onClick={this.onSaveClick} variant="primary" type="submit">
-            Save Changes
-          </Button>
-        </Form>
+      <div>
+        <div>
+          <TicketNavbar {...this.props} />
+          <br />
+        </div>
+        <div className="container">
+          <h2>New Ticket</h2>
+          <Form>
+            <Form.Group controlId="formAuthorText">
+              <Form.Label>Author</Form.Label>
+              <Form.Control onChange={this.onChangeAuthor} value={this.state.author} />
+            </Form.Group>
+            <Form.Group controlId="formPlainText">
+              <Form.Label>Requestor</Form.Label>
+              <Form.Control type="text" onChange={this.onChangeRequestor} value={this.state.requestor} placeholder="Who is requesting this ticket?" />
+            </Form.Group>
+            <Form.Group controlId="formTextArea">
+              <Form.Label>Description</Form.Label>
+              <Form.Control as="textarea" onChange={this.onChangeDesc} value={this.state.desc} placeholder="Describe the issue." />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Due Date</Form.Label>
+              <br />
+              <DatePicker
+                placeholder="Due Date"
+                onChange={this.onChangeDue}
+                selected={this.state.due}
+              />
+            </Form.Group>
+            <Button onClick={this.onSaveClick} variant="primary" type="submit">
+              Save Changes
+            </Button>
+          </Form>
+        </div>
       </div>
     )
   }

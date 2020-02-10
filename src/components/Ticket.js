@@ -9,7 +9,7 @@ class Ticket extends React.Component {
   }
 
   onTicketClick = (event) => {
-    window.location = '/tickets/' + this.props.id
+    this.props.history.push('/tickets/' + this.props.id)
   }
 
   render () {

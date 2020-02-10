@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import TicketNavbar from './TicketNavbar';
 
 class TicketEdit extends React.Component {
   constructor(props) {
@@ -75,7 +76,7 @@ class TicketEdit extends React.Component {
     axios.put('https://open-ticket-backend.herokuapp.com/tickets/' + this.state.id, editedTicket)
     .then(res => {
       console.log(res.data)
-      window.location = '/';
+      this.props.history.push('/');
     });
 
   }
@@ -86,47 +87,52 @@ class TicketEdit extends React.Component {
     axios.delete('https://open-ticket-backend.herokuapp.com/tickets/' + this.state.id)
     .then(res => {
       console.log(res.data)
-      window.location = '/';
+      this.props.history.push('/');
     });
   }
 
   render() {
     return(
-      <div className="container">
-        <h2>Ticket ID: {this.state.id.substring(this.state.id.length - 6, this.state.id.length).toUpperCase()}</h2>
-
-        <Form>
-          <Form.Group controlId="formAuthorText">
-            <Form.Label>Author</Form.Label>
-            <Form.Control readOnly value={this.state.author} />
-          </Form.Group>
-          <Form.Group controlId="formPlainText">
-            <Form.Label>Requestor</Form.Label>
-            <Form.Control type="text" onChange={this.onChangeRequestor} value={this.state.requestor} placeholder="Who is requesting this ticket?" />
-          </Form.Group>
-          <Form.Group controlId="formTextArea">
-            <Form.Label>Description</Form.Label>
-            <Form.Control as="textarea" onChange={this.onChangeDesc} value={this.state.desc} placeholder="Describe the issue." />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Due Date</Form.Label>
-            <br />
-            <DatePicker
-              onChange={this.onChangeDue}
-              selected={this.state.due}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Button onClick={this.onSaveClick} variant="primary" type="submit">
-              Save Changes
-            </Button>
-          </Form.Group>
-          <Form.Group>
-            <Button onClick={this.onDeleteClick} variant="danger" type="submit">
-              Delete Ticket
-            </Button>
-          </Form.Group>
-        </Form>
+      <div>
+        <div>
+          <TicketNavbar {...this.props} />
+          <br />
+        </div>
+        <div className="container">
+          <h2>Ticket ID: {this.state.id.substring(this.state.id.length - 6, this.state.id.length).toUpperCase()}</h2>
+          <Form>
+            <Form.Group controlId="formAuthorText">
+              <Form.Label>Author</Form.Label>
+              <Form.Control readOnly value={this.state.author} />
+            </Form.Group>
+            <Form.Group controlId="formPlainText">
+              <Form.Label>Requestor</Form.Label>
+              <Form.Control type="text" onChange={this.onChangeRequestor} value={this.state.requestor} placeholder="Who is requesting this ticket?" />
+            </Form.Group>
+            <Form.Group controlId="formTextArea">
+              <Form.Label>Description</Form.Label>
+              <Form.Control as="textarea" onChange={this.onChangeDesc} value={this.state.desc} placeholder="Describe the issue." />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Due Date</Form.Label>
+              <br />
+              <DatePicker
+                onChange={this.onChangeDue}
+                selected={this.state.due}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Button onClick={this.onSaveClick} variant="primary" type="submit">
+                Save Changes
+              </Button>
+            </Form.Group>
+            <Form.Group>
+              <Button onClick={this.onDeleteClick} variant="danger" type="submit">
+                Delete Ticket
+              </Button>
+            </Form.Group>
+          </Form>
+        </div>
       </div>
     )
   }
