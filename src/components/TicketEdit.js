@@ -75,14 +75,29 @@ class TicketEdit extends React.Component {
   onSaveClick = e => {
     e.preventDefault()
 
-    const editedTicket = {
-      desc: this.state.desc,
-      requestor: this.state.requestor,
-      author: {
-        username: this.state.author
-      },
-      due: this.state.due,
-      journals: this.state.journals.concat(this.state.journal)
+    let editedTicket = {};
+
+    if (this.state.journal.length() > 0) {
+      editedTicket = {
+        desc: this.state.desc,
+        requestor: this.state.requestor,
+        author: {
+          username: this.state.author
+        },
+        due: this.state.due,
+        journals: this.state.journals.concat(this.state.journal)
+      }
+    }
+    else {
+      editedTicket = {
+        desc: this.state.desc,
+        requestor: this.state.requestor,
+        author: {
+          username: this.state.author
+        },
+        due: this.state.due,
+        journals: this.state.journals
+      }
     }
 
     axios.put('https://open-ticket-backend.herokuapp.com/tickets/' + this.state.id, editedTicket)
