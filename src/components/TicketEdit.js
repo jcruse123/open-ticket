@@ -1,6 +1,8 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
 import axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -19,7 +21,9 @@ class TicketEdit extends React.Component {
       author: '',
       requestor: '',
       desc: '',
-      due: ''
+      due: '',
+      journal: '',
+      journals: []
     }
   }
 
@@ -31,7 +35,8 @@ class TicketEdit extends React.Component {
         author: response.data.author.username,
         requestor: response.data.requestor,
         desc: response.data.desc,
-        due: new Date(response.data.due)
+        due: new Date(response.data.due),
+        journals: response.data.journals
       })
     })
   }
@@ -54,6 +59,12 @@ class TicketEdit extends React.Component {
     })
   }
 
+  onChangeJournal = e => {
+    this.setState({
+      journal: e.target.value
+    })
+  }
+
   onChangeDue = e => {
     this.setState({
       due: e
@@ -70,13 +81,13 @@ class TicketEdit extends React.Component {
       author: {
         username: this.state.author
       },
-      due: this.state.due
+      due: this.state.due,
+      journals: this.state.journals.concat(this.state.journal)
     }
 
     axios.put('https://open-ticket-backend.herokuapp.com/tickets/' + this.state.id, editedTicket)
     .then(res => {
-      console.log(res.data)
-      this.props.history.push('/');
+      window.location = '/tickets/' + this.state.id;
     });
 
   }
@@ -98,41 +109,65 @@ class TicketEdit extends React.Component {
           <TicketNavbar {...this.props} />
           <br />
         </div>
-        <div className="container">
-          <h2>Ticket ID: {this.state.id.substring(this.state.id.length - 6, this.state.id.length).toUpperCase()}</h2>
-          <Form>
-            <Form.Group controlId="formAuthorText">
-              <Form.Label>Author</Form.Label>
-              <Form.Control readOnly value={this.state.author} />
-            </Form.Group>
-            <Form.Group controlId="formPlainText">
-              <Form.Label>Requestor</Form.Label>
-              <Form.Control type="text" onChange={this.onChangeRequestor} value={this.state.requestor} placeholder="Who is requesting this ticket?" />
-            </Form.Group>
-            <Form.Group controlId="formTextArea">
-              <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" onChange={this.onChangeDesc} value={this.state.desc} placeholder="Describe the issue." />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Due Date</Form.Label>
+        <Container>
+          <Card>
+            <Container className="bg-light">
               <br />
-              <DatePicker
-                onChange={this.onChangeDue}
-                selected={this.state.due}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Button onClick={this.onSaveClick} variant="primary" type="submit">
-                Save Changes
-              </Button>
-            </Form.Group>
-            <Form.Group>
-              <Button onClick={this.onDeleteClick} variant="danger" type="submit">
-                Delete Ticket
-              </Button>
-            </Form.Group>
-          </Form>
-        </div>
+              <h2>Ticket ID: {this.state.id.substring(this.state.id.length - 6, this.state.id.length).toUpperCase()}</h2>
+              <hr />
+              <Form>
+                <Form.Group controlId="formAuthorText">
+                  <Form.Label>Author</Form.Label>
+                  <Form.Control readOnly value={this.state.author} />
+                </Form.Group>
+                <Form.Group controlId="formPlainText">
+                  <Form.Label>Requestor</Form.Label>
+                  <Form.Control type="text" onChange={this.onChangeRequestor} value={this.state.requestor} placeholder="Who is requesting this ticket?" />
+                </Form.Group>
+                <Form.Group controlId="formTextArea">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control as="textarea" onChange={this.onChangeDesc} value={this.state.desc} placeholder="Describe the issue." />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Due Date</Form.Label>
+                  <br />
+                  <DatePicker
+                    onChange={this.onChangeDue}
+                    selected={this.state.due}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Journal Entries</Form.Label>
+                  {this.state.journals.map((value, index) => {
+                    return (
+                      <div className='mb-2'>
+                        <Card key={index}>
+                          <Container className='mt-2 mb-2' key={index}>
+                            {value}
+                          </Container>
+                        </Card>
+                      </div>
+                    );
+                  })}
+                </Form.Group>
+                <Form.Group controlId="formTextArea">
+                  <Form.Label>New Journal</Form.Label>
+                  <Form.Control as="textarea" onChange={this.onChangeJournal} value={this.state.journal} placeholder="Type a new journal entry." />
+                </Form.Group>
+                <br />
+                <Form.Group>
+                  <Button onClick={this.onSaveClick} variant="primary" size="sm" type="submit">
+                    Save Changes
+                  </Button>
+                  {' '}
+                  <Button onClick={this.onDeleteClick} variant="danger" size="sm" type="submit">
+                    Delete Ticket
+                  </Button>
+                </Form.Group>
+              </Form>
+            </Container>
+          </Card>
+        </Container>
       </div>
     )
   }

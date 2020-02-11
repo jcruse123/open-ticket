@@ -19,10 +19,10 @@ class TicketTable extends React.Component {
 
     return(
       <div id='tickets'>
-        <Table bordered hover>
-          <thead>
+        <Table className="mb-0 table-responsive-md" hover>
+          <thead className="thead-light">
             <tr>
-              <th>Ticket ID</th>
+              <th>ID</th>
               <th>Requestor</th>
               <th>Description</th>
               <th>Author</th>

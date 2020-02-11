@@ -25,7 +25,7 @@ class TicketNavbar extends React.Component {
             <Nav.Link onClick={this.onNewClick} href="/new">New Ticket</Nav.Link>
           </Nav>
           <Nav className="ml-auto">
-            <Nav.Link href="#">Log In</Nav.Link>
+            <Nav.Link href="#"></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

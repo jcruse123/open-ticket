@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import TicketTable from './TicketTable';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import TicketNavbar from './TicketNavbar';
 
@@ -33,9 +34,9 @@ class TicketDashboard extends React.Component {
           <TicketNavbar {...this.props} />
           <br />
         </div>
-        <div className="container">
+        <div className="container" id="slim">
           <Jumbotron>
-            <h1>Open Ticket</h1>
+            <h1 className="display-4">Open Ticket</h1>
             <hr />
             <p>
               Open Ticket is an easy to use issue tracker powered by React.
@@ -44,7 +45,9 @@ class TicketDashboard extends React.Component {
               <Button onClick={this.onNewClick}>New Ticket</Button>
             </p>
           </Jumbotron>
-          <TicketTable {...this.props} tickets={this.state.tickets} />
+          <Card>
+            <TicketTable className="shadow p-3 mb-5 bg-white rounded" {...this.props} tickets={this.state.tickets} />
+          </Card>
         </div>
       </div>
     )
