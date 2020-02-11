@@ -102,7 +102,18 @@ class TicketEdit extends React.Component {
 
     axios.put('https://open-ticket-backend.herokuapp.com/tickets/' + this.state.id, editedTicket)
     .then(res => {
-      window.location = '/tickets/' + this.state.id;
+      axios.get('https://open-ticket-backend.herokuapp.com/tickets/' + this.props.match.params.id)
+      .then(response => {
+        this.setState({
+          id: response.data._id,
+          author: response.data.author.username,
+          requestor: response.data.requestor,
+          desc: response.data.desc,
+          due: new Date(response.data.due),
+          journals: response.data.journals,
+          journal: ''
+        })
+      })
     });
 
   }
