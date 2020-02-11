@@ -17,7 +17,7 @@ class TicketNavbar extends React.Component {
 
   render() {
     return(
-      <Navbar variant="dark" bg="dark" expand="sm">
+      <Navbar fixed="top" variant="dark" bg="dark" expand="sm">
         <Navbar.Brand onClick={this.onBrandClick} href="/">Open Ticket</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

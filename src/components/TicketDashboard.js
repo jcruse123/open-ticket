@@ -34,7 +34,7 @@ class TicketDashboard extends React.Component {
           <TicketNavbar {...this.props} />
           <br />
         </div>
-        <div className="container" id="slim">
+        <div className="container">
           <Jumbotron>
             <h1 className="display-4">Open Ticket</h1>
             <hr />
