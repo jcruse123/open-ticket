@@ -77,7 +77,7 @@ class TicketEdit extends React.Component {
 
     let editedTicket = {};
 
-    if (this.state.journal.length() > 0) {
+    if (this.state.journal.length > 0) {
       editedTicket = {
         desc: this.state.desc,
         requestor: this.state.requestor,
