@@ -86,7 +86,7 @@ class TicketNew extends React.Component {
               <Form>
                 <Form.Group controlId="formAuthorText">
                   <Form.Label>Author</Form.Label>
-                  <Form.Control onChangeAuthor={this.onChangeAuthor} value={this.state.author} />
+                  <Form.Control onChange={this.onChangeAuthor} value={this.state.author} />
                 </Form.Group>
                 <Form.Group controlId="formPlainText">
                   <Form.Label>Requestor</Form.Label>
