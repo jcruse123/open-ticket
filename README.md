@@ -1,4 +1,4 @@
-#open-ticket
+# open-ticket
 
 Open Ticket is an easy to use issue tracker powered by React.
 
