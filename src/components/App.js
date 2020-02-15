@@ -7,6 +7,8 @@ import TicketNew from './TicketNew';
 
 
 const App = () => {
+  // Initialize React Router with routes to Read, Create,
+  // and Update/Delete components.
   return (
     <div>
       <br />
@@ -22,5 +24,6 @@ const App = () => {
     </div>
   );
 };
+
 
 export default App;

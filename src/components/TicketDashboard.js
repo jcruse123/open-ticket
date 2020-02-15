@@ -7,10 +7,13 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import TicketNavbar from './TicketNavbar';
 
 class TicketDashboard extends React.Component {
+  // The ticket dashboard holds the state for child components.
   state = {
     tickets: [],
   }
 
+  // When dashbaord loads, request tickets from backend server,
+  // then load them into the state.
   componentDidMount() {
     axios.get('https://open-ticket-backend.herokuapp.com/tickets/')
     .then(response => {
@@ -23,11 +26,14 @@ class TicketDashboard extends React.Component {
     })
   }
 
+  // Handler for new ticket button. Opens New Ticket route.
   onNewClick = e => {
     this.props.history.push('/new')
   };
 
   render() {
+    // Passes the tickets as a prop to the TicketTable component,
+    // then displays the table.
     return(
       <div>
         <div>

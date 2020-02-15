@@ -5,17 +5,20 @@ import Nav from 'react-bootstrap/Nav'
 
 class TicketNavbar extends React.Component {
 
+  // New ticket link handler, takes user to new ticket page
   onNewClick = e => {
     e.preventDefault();
     this.props.history.push('/new');
   }
 
+  // Brand name handler, takes user to index page
   onBrandClick = e => {
     e.preventDefault()
     this.props.history.push('/');
   }
 
   render() {
+    // Displays navbar fixed at top of screen
     return(
       <Navbar fixed="top" variant="dark" bg="dark" expand="sm">
         <Navbar.Brand onClick={this.onBrandClick} href="/">Open Ticket</Navbar.Brand>

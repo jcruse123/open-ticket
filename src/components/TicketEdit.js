@@ -27,6 +27,8 @@ class TicketEdit extends React.Component {
     }
   }
 
+  // Looks up the ticket being edited using id,
+  // then loads that ticket into the state.
   componentDidMount() {
     axios.get('https://open-ticket-backend.herokuapp.com/tickets/' + this.props.match.params.id)
     .then(response => {
@@ -41,6 +43,7 @@ class TicketEdit extends React.Component {
     })
   }
 
+  // Form input field handlers
   onChangeAuthor = e => {
     this.setState({
       author: e.target.value
@@ -72,11 +75,14 @@ class TicketEdit extends React.Component {
     console.log(this.state.due)
   };
 
+  // Save changes to ticket button handler
   onSaveClick = e => {
     e.preventDefault()
 
     let editedTicket = {};
 
+    // If there is a new journal entry present,
+    // add that entry to the array of journals in state.
     if (this.state.journal.length > 0) {
       editedTicket = {
         desc: this.state.desc,
@@ -88,6 +94,10 @@ class TicketEdit extends React.Component {
         journals: this.state.journals.concat(this.state.journal)
       }
     }
+
+    // If there is no new journal entry,
+    // do not modify journals. This prevents empty journals
+    // from being added to the database.
     else {
       editedTicket = {
         desc: this.state.desc,
@@ -100,8 +110,10 @@ class TicketEdit extends React.Component {
       }
     }
 
+    // Send the updated ticket to the server
     axios.put('https://open-ticket-backend.herokuapp.com/tickets/' + this.state.id, editedTicket)
     .then(res => {
+      // After ticket is updated, refresh information on screen
       axios.get('https://open-ticket-backend.herokuapp.com/tickets/' + this.props.match.params.id)
       .then(response => {
         this.setState({
@@ -118,9 +130,12 @@ class TicketEdit extends React.Component {
 
   }
 
+  // Delete ticket button handler
   onDeleteClick = e => {
     e.preventDefault()
 
+    // Find ticket with id and delete it,
+    // then redirect to index page.
     axios.delete('https://open-ticket-backend.herokuapp.com/tickets/' + this.state.id)
     .then(res => {
       console.log(res.data)
@@ -129,6 +144,7 @@ class TicketEdit extends React.Component {
   }
 
   render() {
+    // Display edit form using Bootstrap form components
     return(
       <div>
         <div>

@@ -25,7 +25,7 @@ class TicketNew extends React.Component {
     }
   }
 
-
+  // Form input field  handlers
   onChangeAuthor = e => {
     this.setState({
       author: e.target.value
@@ -51,9 +51,11 @@ class TicketNew extends React.Component {
     console.log(this.state.due)
   };
 
+  // Save new ticket button handler
   onSaveClick = e => {
     e.preventDefault()
 
+    // Create object for new ticket
     const newTicket = {
       desc: this.state.desc,
       requestor: this.state.requestor,
@@ -63,14 +65,16 @@ class TicketNew extends React.Component {
       due: this.state.due
     }
 
+    // Add new ticket object to database,
+    // then redirect to index page
     axios.post('https://open-ticket-backend.herokuapp.com/tickets/', newTicket)
     .then(res => {
       this.props.history.push('/');
     });
-
   }
 
   render() {
+    // Display new ticket form using Bootstrap components
     return(
       <div>
         <div>
@@ -117,5 +121,6 @@ class TicketNew extends React.Component {
     )
   }
 }
+
 
 export default TicketNew;

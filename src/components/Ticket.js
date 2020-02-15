@@ -2,12 +2,16 @@ import React from 'react';
 
 
 class Ticket extends React.Component {
+  // This component gets information about one ticket as a prop,
+  // then returns a  row for the ticket table.
   constructor(props) {
     super(props);
 
     this.onTicketClick = this.onTicketClick.bind(this);
   }
 
+  // If user clicks on a ticket's row,
+  // they go to that ticket's edit route.
   onTicketClick = (event) => {
     this.props.history.push('/tickets/' + this.props.id)
   }
